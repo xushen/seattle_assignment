@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="-1" />
+  <title>Hello World.</title>
+  <script type="text/javascript" src="common.js"></script>
+
+  <!-- Get text area value and send to native client side -->
+  <script type="text/javascript">
+    function sendMessage(){
+      var inputBox = document.getElementById('inputBox');
+      naclModule.postMessage(inputBox.value);
+      return false;
+    } 
+  </script>
+</head>
+<body onload="pageDidLoad('hello_world', 'glibc')">
+
+<h1>Hello World.</h1>
+<h2>Status: <code id="statusField">NO-STATUS</code></h2>
+
+  <div id="listener">
+    <script type="text/javascript">
+      var listener = document.getElementById('listener')
+      listener.addEventListener('load', moduleDidLoad, true);
+      listener.addEventListener('message', handleMessage, true);
+    </script>
+  </div>
+
+  <div>
+  <textarea id="inputBox" name="inputBox" rows="4" cols="50">Type anything you want</textarea>
+  </div>
+
+  <button id="sendMessageButton" onclick="sendMessage()">Send</button>
+
+</body>
+</html>
